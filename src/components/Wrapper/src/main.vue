@@ -8,7 +8,7 @@ defineProps({
   <div class="wrapper">
     <svg
       style="overflow: visible"
-      viewBox="0 0 600 360"
+      viewBox="0 0 600 330"
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
     >
@@ -77,6 +77,9 @@ defineProps({
         {{ title }}
       </text>
     </svg>
+    <div class="chart">
+      <slot name="chart"></slot>
+    </div>
   </div>
 </template>
 

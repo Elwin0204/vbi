@@ -1,6 +1,7 @@
 <script setup>
 import Brand from './components/Brand';
 import Wrapper from './components/Wrapper';
+import Ringlike from './components/Ringlike';
 </script>
 
 <template>
@@ -9,7 +10,11 @@ import Wrapper from './components/Wrapper';
       <Brand />
     </div>
     <div class="vbi-left">
-      <Wrapper title="分布汇总" />
+      <Wrapper title="分布汇总">
+        <template #chart>
+          <Ringlike></Ringlike>
+        </template>
+      </Wrapper>
       <Wrapper title="安全统计" />
       <Wrapper title="消防统计" />
     </div>

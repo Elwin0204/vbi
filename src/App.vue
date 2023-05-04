@@ -3,6 +3,7 @@ import Brand from './components/Brand';
 import Wrapper from './components/Wrapper';
 import Ringlike from './components/Ringlike';
 import AreaChart from './components/AreaChart';
+import LineChart1 from './components/LineChart1';
 </script>
 
 <template>
@@ -25,7 +26,11 @@ import AreaChart from './components/AreaChart';
           <AreaChart />
         </template>
       </Wrapper>
-      <Wrapper title="考勤统计" />
+      <Wrapper title="考勤统计">
+        <template #chart>
+          <LineChart1 />
+        </template>
+      </Wrapper>
       <Wrapper title="人员类型" />
     </div>
   </div>

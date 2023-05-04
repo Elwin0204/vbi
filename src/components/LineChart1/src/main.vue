@@ -19,26 +19,27 @@ function initOpt() {
       top: 30,
       containLabel: true,
     },
+    legend: {
+      right: 30,
+      data: [
+        {
+          name: "今日",
+          textStyle: {
+            color: "#94fbc0",
+          },
+        },
+        {
+          name: "昨日",
+          textStyle: {
+            color: "#99e9fd",
+          },
+        },
+      ],
+    },
     tooltip: {
       show: true,
       trigger: "axis",
-      backgroundColor: "transparent",
-      padding: 0,
-      borderWidth: 0,
-      formatter: function (params) {
-        const oldVal = params[0].data;
-        const newVal = params[1].data;
-        let result = '';
-        if (oldVal == 0) {
-          result = '分母为0';
-        } else if (newVal - oldVal > 0) {
-          result = `同比增长${Math.floor(((newVal-oldVal) / oldVal) * 100)}%`;
-        } else {
-          result = `同比下降${Math.floor(((oldVal - newVal) / oldVal) * 100)}%`;
-        }
-        
-        return '<div style="margin: 0 -10px;padding: 6px 16px;color: #fff;font-size:14px;border-radius: 16px 0px 16px 16px;background-image: linear-gradient(to right bottom, #58a8f1, #3753cc);">' + result + '</div>';
-      },
+      formatter: "{b0}: {c0}<br />{b1}: {c1}",
     },
     xAxis: {
       type: "category",
@@ -63,7 +64,7 @@ function initOpt() {
     },
     yAxis: {
       type: "value",
-      max: 100,
+      max: 120,
       min: 0,
       interval: 20,
       splitLine: {
@@ -75,33 +76,33 @@ function initOpt() {
     },
     series: [
       {
-        data: [0, 48, 46, 38, 65, 90, 65, 35, 45, 70, 56, 40, 30, 40, 0],
+        name: "今日",
+        data: [42, 30, 38, 60, 50, 40, 50, 85, 112, 95, 60, 32, 45, 58, 22],
         type: "line",
         smooth: true,
         showSymbol: false,
-        areaStyle: {
-          color: "#99e9fd",
-        },
         lineStyle: {
-          color: "#99e9fd",
+          color: "#94fbc0",
+          shadowColor: "#94fbc0",
+          shadowBlur: 12,
         },
         itemStyle: {
-          color: "#99e9fd",
+          color: "#94fbc0",
         },
       },
       {
-        data: [0, 22, 60, 43, 41, 55, 80, 100, 80, 52, 38, 47, 68, 50, 0],
+        name: "昨日",
+        data: [60, 83, 96, 100, 92, 75, 60, 55, 68, 78, 70, 60, 80, 90, 63],
         type: "line",
         smooth: true,
         showSymbol: false,
-        areaStyle: {
-          color: "#94fbc0",
-        },
         lineStyle: {
-          color: "#94fbc0",
+          color: "#99e9fd",
+          shadowColor: "#99e9fd",
+          shadowBlur: 12,
         },
         itemStyle: {
-          color: "#94fbc0",
+          color: "#99e9fd",
         },
       },
     ],
@@ -110,7 +111,7 @@ function initOpt() {
 
 function initView() {
   initOpt();
-  const chartDom = document.getElementById("JS_AreaChart");
+  const chartDom = document.getElementById("JS_LineChart1");
   const areaChart = echarts.init(chartDom);
   option && areaChart.setOption(option);
 }
@@ -118,8 +119,8 @@ function initView() {
 
 <template>
   <div
-    class="area-chart"
-    id="JS_AreaChart"
+    class="line-chart1"
+    id="JS_LineChart1"
     style="width: 382px; height: 180px"
   ></div>
 </template>

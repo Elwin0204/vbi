@@ -36,11 +36,6 @@ function initOpt() {
         },
       ],
     },
-    tooltip: {
-      show: true,
-      trigger: "axis",
-      formatter: "{b0}: {c0}<br />{b1}: {c1}",
-    },
     xAxis: {
       type: "category",
       boundaryGap: false,
@@ -77,10 +72,85 @@ function initOpt() {
     series: [
       {
         name: "今日",
-        data: [42, 30, 38, 60, 50, 40, 50, 85, 112, 95, 60, 32, 45, 58, 22],
+        data: [
+          {
+            value: 42,
+            symbolSize: 0,
+          },
+          {
+            value: 30,
+            symbolSize: 10,
+            symbol: "path://M0.5 50a49.5 50 0 1 0 99 0a49.5 50 0 1 0 -99 0z M20 50a30 30 0 1 0 60 0a30 30 0 1 0 -60 0z",
+            label: {
+              show: true,
+              color: "#6df87f",
+            },
+          },
+          {
+            value: 38,
+            symbolSize: 0,
+          },
+          {
+            value: 60,
+            symbolSize: 0,
+          },
+          {
+            value: 50,
+            symbolSize: 0,
+          },
+          {
+            value: 40,
+            symbolSize: 0,
+          },
+          {
+            value: 50,
+            symbolSize: 0,
+          },
+          {
+            value: 85,
+            symbolSize: 10,
+            symbol: "path://M0.5 50a49.5 50 0 1 0 99 0a49.5 50 0 1 0 -99 0z M20 50a30 30 0 1 0 60 0a30 30 0 1 0 -60 0z",
+            label: {
+              show: true,
+              color: "#6df87f",
+            },
+          },
+          {
+            value: 112,
+            symbolSize: 0,
+          },
+          {
+            value: 95,
+            symbolSize: 10,
+            symbol: "path://M0.5 50a49.5 50 0 1 0 99 0a49.5 50 0 1 0 -99 0z M20 50a30 30 0 1 0 60 0a30 30 0 1 0 -60 0z",
+            label: {
+              show: true,
+              color: "#6df87f",
+            },
+          },
+          {
+            value: 60,
+            symbolSize: 0,
+          },
+          {
+            value: 32,
+            symbolSize: 0,
+          },
+          {
+            value: 45,
+            symbolSize: 0,
+          },
+          {
+            value: 58,
+            symbolSize: 0,
+          },
+          {
+            value: 22,
+            symbolSize: 0,
+          },
+        ],
         type: "line",
         smooth: true,
-        showSymbol: false,
         lineStyle: {
           color: "#94fbc0",
           shadowColor: "#94fbc0",

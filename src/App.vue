@@ -4,6 +4,7 @@ import Wrapper from './components/Wrapper';
 import Ringlike from './components/Ringlike';
 import AreaChart from './components/AreaChart';
 import LineChart1 from './components/LineChart1';
+import MixedLinebar from './components/MixedLinebar';
 </script>
 
 <template>
@@ -18,7 +19,11 @@ import LineChart1 from './components/LineChart1';
         </template>
       </Wrapper>
       <Wrapper title="安全统计" />
-      <Wrapper title="消防统计" />
+      <Wrapper title="消防统计">
+        <template #chart>
+          <MixedLinebar />
+        </template>
+      </Wrapper>
     </div>
     <div class="vbi-right">
       <Wrapper title="车辆统计">

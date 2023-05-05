@@ -15,11 +15,12 @@ function initOpt() {
     grid: {
       left: 30,
       right: 30,
-      bottom: 15,
+      bottom: 0,
       top: 30,
       containLabel: true,
     },
     legend: {
+      top: 5,
       right: 30,
       data: [
         {

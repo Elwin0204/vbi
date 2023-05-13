@@ -41,7 +41,7 @@ defineProps({
         >
           <defs>
             <filter id="shadow" width="150%" height="150%" x="-25%" y="-25%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+              <feGaussianBlur in="SourceGraphic" stdDeviation="0.5" />
               <feBlend in="SourceGraphic" mode="normal" />
             </filter>
             <linearGradient

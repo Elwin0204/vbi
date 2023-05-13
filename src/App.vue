@@ -5,6 +5,9 @@ import Ringlike from './components/Ringlike';
 import AreaChart from './components/AreaChart';
 import LineChart1 from './components/LineChart1';
 import MixedLinebar from './components/MixedLinebar';
+import Pyramid3D from './components/Pyramid3D';
+import LineChart2 from './components/LineChart2';
+import PieChart from './components/PieChart';
 </script>
 
 <template>
@@ -18,7 +21,11 @@ import MixedLinebar from './components/MixedLinebar';
           <Ringlike></Ringlike>
         </template>
       </Wrapper>
-      <Wrapper title="安全统计" />
+      <Wrapper title="安全统计">
+        <template #chart>
+          <PieChart />
+        </template>
+      </Wrapper>
       <Wrapper title="消防统计">
         <template #chart>
           <MixedLinebar />
@@ -36,7 +43,14 @@ import MixedLinebar from './components/MixedLinebar';
           <LineChart1 />
         </template>
       </Wrapper>
-      <Wrapper title="人员类型" />
+      <Wrapper title="人员类型">
+        <template #chart>
+          <Pyramid3D />
+        </template>
+      </Wrapper>
+    </div>
+    <div class="vbi-bottom">
+      <LineChart2 />
     </div>
   </div>
 </template>

@@ -157,6 +157,7 @@ function initOpt() {
         itemStyle: {
           color: "#94fbc0",
         },
+        
       },
       {
         name: "昨日",

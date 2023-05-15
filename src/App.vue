@@ -8,6 +8,8 @@ import MixedLinebar from './components/MixedLinebar';
 import Pyramid3D from './components/Pyramid3D';
 import LineChart2 from './components/LineChart2';
 import PieChart from './components/PieChart';
+import useResize from './hooks/useResize';
+useResize();
 </script>
 
 <template>

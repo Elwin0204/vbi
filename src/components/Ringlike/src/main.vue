@@ -1,4 +1,5 @@
 <script setup>
+import { getCurrentInstance } from 'vue';
 defineProps({
   charts: {
     type: Array,
@@ -26,6 +27,10 @@ defineProps({
       },
     ],
   },
+});
+const { Bus }  = getCurrentInstance().appContext.config.globalProperties;
+Bus.on('resize', (res) => {
+  console.log('ringlike', res);
 });
 </script>
 

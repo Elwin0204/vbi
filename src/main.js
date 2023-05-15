@@ -1,5 +1,8 @@
-import { createApp } from 'vue'
-import './style.less'
-import App from './App.vue'
+import { createApp } from 'vue';
+import mitt from 'mitt';
+import './style.less';
+import App from './App.vue';
 
-createApp(App).mount('#app')
+const app = createApp(App);
+app.config.globalProperties.Bus = mitt();
+app.mount('#app');

@@ -48,9 +48,6 @@ function initOpt() {
       left: "33%",
       bottom: 10,
     },
-    // tooltip: {
-    //   trigger: "item",
-    // },
     legend: {
       orient: "vertical",
       right: 15,
@@ -65,10 +62,11 @@ function initOpt() {
     series: [
       {
         type: "pie",
-        hoverAnimation: false,
+        emphasis: {
+          scale: false
+        },
         radius: ["50%", "70%"],
         center: ["40%", "55%"],
-        // adjust the start angle
         startAngle: -171,
         label: {
           show: true,
@@ -152,10 +150,8 @@ function initOpt() {
             },
           },
           {
-            // make an record to fill the bottom 50%
             value: 48.22,
             itemStyle: {
-              // stop the chart from rendering this piece
               color: "none",
               decal: {
                 symbol: "none",
@@ -166,10 +162,8 @@ function initOpt() {
             },
           },
           {
-            // make an record to fill the bottom 50%
             value: 38.22,
             itemStyle: {
-              // stop the chart from rendering this piece
               color: "rgb(64, 79, 178, 0.2)",
               decal: {
                 symbol: "none",
@@ -190,6 +184,7 @@ function initOpt() {
         detail: {
           offsetCenter: [0, 0],
           fontSize: 24,
+          fontFamily: 'vbi',
           color: "#71e6b5",
         },
         data: [

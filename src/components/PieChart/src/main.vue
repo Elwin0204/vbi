@@ -1,9 +1,21 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, getCurrentInstance, ref, shallowRef, nextTick } from "vue";
 import * as echarts from "echarts";
-let option;
-defineProps({
-  charts: String,
+const { Bus }  = getCurrentInstance().appContext.config.globalProperties;
+
+const REF_PieChart = shallowRef();
+const chartIns = shallowRef();
+const CH = ref(0);
+const CW = ref(0);
+
+onMounted(() => {
+  Bus.on('resize', async (res) => {
+    const { chart: { chartW, chartH } } = res;
+    CH.value = chartH;
+    CW.value = chartW;
+    await nextTick();
+    initView(initOpt());
+  });
 });
 
 const themes = [
@@ -33,12 +45,8 @@ const themes = [
   },
 ];
 
-onMounted(() => {
-  initView();
-});
-
 function initOpt() {
-  option = {
+  return {
     title: {
       text: "等级评分",
       textStyle: {
@@ -223,11 +231,12 @@ function initOpt() {
   };
 }
 
-function initView() {
-  initOpt();
-  const chartDom = document.getElementById("JS_PieChart");
-  const areaChart = echarts.init(chartDom);
-  option && areaChart.setOption(option);
+function initView(option) {
+  if (!chartIns.value) {
+    chartIns.value = echarts.init(REF_PieChart.value);
+  }
+  chartIns.value.resize();
+  option && chartIns.value.setOption(option);
 }
 </script>
 
@@ -235,7 +244,8 @@ function initView() {
   <div
     class="pie-chart"
     id="JS_PieChart"
-    style="width: 382px; height: 180px"
+    ref="REF_PieChart"
+    :style="{width:  CW + 'px', height: CH + 'px'}"
   ></div>
 </template>
 

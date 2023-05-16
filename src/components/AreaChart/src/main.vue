@@ -1,17 +1,25 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, getCurrentInstance, ref, shallowRef, nextTick } from "vue";
 import * as echarts from "echarts";
-let option;
-defineProps({
-  charts: String,
-});
+const { Bus }  = getCurrentInstance().appContext.config.globalProperties;
+
+const REF_AreaChart = shallowRef();
+const chartIns = shallowRef();
+const CH = ref(0);
+const CW = ref(0);
 
 onMounted(() => {
-  initView();
+  Bus.on('resize', async (res) => {
+    const { chart: { chartW, chartH } } = res;
+    CH.value = chartH;
+    CW.value = chartW;
+    await nextTick();
+    initView(initOpt());
+  });
 });
 
 function initOpt() {
-  option = {
+  return {
     grid: {
       left: 30,
       right: 30,
@@ -144,11 +152,12 @@ function initOpt() {
   };
 }
 
-function initView() {
-  initOpt();
-  const chartDom = document.getElementById("JS_AreaChart");
-  const areaChart = echarts.init(chartDom);
-  option && areaChart.setOption(option);
+function initView(option) {
+  if (!chartIns.value) {
+    chartIns.value = echarts.init(REF_AreaChart.value);
+  }
+  chartIns.value.resize();
+  option && chartIns.value.setOption(option);
 }
 </script>
 
@@ -156,7 +165,8 @@ function initView() {
   <div
     class="area-chart"
     id="JS_AreaChart"
-    style="width: 382px; height: 180px"
+    ref="REF_AreaChart"
+    :style="{width:  CW + 'px', height: CH + 'px'}"
   ></div>
 </template>
 

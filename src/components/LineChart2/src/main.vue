@@ -1,34 +1,45 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, getCurrentInstance, ref, shallowRef, nextTick } from "vue";
 import * as echarts from "echarts";
-let option;
-defineProps({
-  charts: String,
-});
+const { Bus } = getCurrentInstance().appContext.config.globalProperties;
+
+const REF_LineChart2 = shallowRef();
+const chartIns = shallowRef();
+const CH = ref(0);
+const CW = ref(0);
 
 onMounted(() => {
-  initView();
+  Bus.on("resize", async (res) => {
+    const {
+      chart: { chartW, chartH },
+      screen: { w }
+    } = res;
+    CH.value = chartH;
+    CW.value = w - chartW * 2;
+    await nextTick();
+    initView(initOpt());
+  });
 });
 
 function initOpt() {
-  option = {
+  return {
     title: {
-      text: ["{a|人员流动}", "{b|}"].join('\n'),
+      text: ["{a|人员流动}", "{b|}"].join("\n"),
       left: 30,
       textStyle: {
         rich: {
           a: {
             color: "#fff",
             fontSize: 16,
-            fontWeight: 'bold',
-            padding: [0, 0, 5, 0]
+            fontWeight: "bold",
+            padding: [0, 0, 5, 0],
           },
-          b:{
+          b: {
             width: 75,
             height: 0,
             borderWidth: 2,
-            borderColor: '#4974ef'
-          }
+            borderColor: "#4974ef",
+          },
         },
       },
     },
@@ -40,7 +51,7 @@ function initOpt() {
       containLabel: true,
     },
     legend: {
-      right: '10%',
+      right: "10%",
       data: [
         {
           name: "来访",
@@ -174,16 +185,22 @@ function initOpt() {
   };
 }
 
-function initView() {
-  initOpt();
-  const chartDom = document.getElementById("JS_LineChart2");
-  const areaChart = echarts.init(chartDom);
-  option && areaChart.setOption(option);
+function initView(option) {
+  if (!chartIns.value) {
+    chartIns.value = echarts.init(REF_LineChart2.value);
+  }
+  chartIns.value.resize();
+  option && chartIns.value.setOption(option);
 }
 </script>
 
 <template>
-  <div class="line-chart2" id="JS_LineChart2" style="height: 180px"></div>
+  <div
+    class="line-chart2"
+    id="JS_LineChart2"
+    ref="REF_LineChart2"
+    :style="{width:  CW + 'px', height: CH + 'px'}"
+  ></div>
 </template>
 
 <style lang="less" scoped>

@@ -16,5 +16,5 @@ export default defineConfig({
         additionalData: '@import "./src/styles/util.less";',
       },
     },
-  }
+  },
 })

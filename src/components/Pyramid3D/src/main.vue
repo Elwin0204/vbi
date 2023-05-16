@@ -1,6 +1,22 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, getCurrentInstance, ref, shallowRef, nextTick } from "vue";
 import * as echarts from "echarts";
+const { Bus }  = getCurrentInstance().appContext.config.globalProperties;
+
+const REF_Pyramid3D = shallowRef();
+const chartIns = shallowRef();
+const CH = ref(0);
+const CW = ref(0);
+
+onMounted(() => {
+  Bus.on('resize', async (res) => {
+    const { chart: { chartW, chartH } } = res;
+    CH.value = chartH;
+    CW.value = chartW;
+    await nextTick();
+    initView(pyramid3dOpt());
+  });
+});
 
 const data = [
   {
@@ -38,7 +54,7 @@ const labelOpts = [
   [60, 0]
 ];
 
-const pyramid3dOpt = (function () {
+const pyramid3dOpt = function () {
   const cumArr = [];
   const percentArr = [];
   const sum = data.reduce(function (sum, cur) {
@@ -233,6 +249,7 @@ const pyramid3dOpt = (function () {
               },
               style: {
                 stroke: "#245184",
+                fill: 'transparent',
                 lineWidth: 2,
               }
             },
@@ -259,7 +276,7 @@ const pyramid3dOpt = (function () {
       },
     },
   };
-})();
+};
 
 function setGraphic (w, h, angle1, angle2) {
   const points = [];
@@ -315,24 +332,23 @@ function setGraphic (w, h, angle1, angle2) {
 }
 
 function initView(option) {
-  const chartDom = document.getElementById("JS_Pyramid3D");
-  const pyramid3d = echarts.init(chartDom);
-  const w = pyramid3d.getWidth();
-  const h = pyramid3d.getHeight();
+  if (!chartIns.value) {
+    chartIns.value = echarts.init(REF_Pyramid3D.value);
+  }
+  chartIns.value.resize();
+  const w = chartIns.value.getWidth();
+  const h = chartIns.value.getHeight();
   const graphic = setGraphic(w, h, (angle1 / 180) * Math.PI, (angle2 / 180) * Math.PI);
-  option && (option.graphic = graphic) && pyramid3d.setOption(option);
+  option && (option.graphic = graphic) && chartIns.value.setOption(option);
 }
-
-onMounted(() => {
-  initView(pyramid3dOpt);
-});
 </script>
 
 <template>
   <div
     class="pyramid3d"
     id="JS_Pyramid3D"
-    style="width: 382px; height: 180px"
+    ref="REF_Pyramid3D"
+    :style="{width:  CW + 'px', height: CH + 'px'}"
   ></div>
 </template>
 

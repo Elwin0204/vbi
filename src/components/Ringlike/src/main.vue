@@ -1,42 +1,55 @@
 <script setup>
-import { getCurrentInstance } from 'vue';
-defineProps({
-  charts: {
-    type: Array,
-    default: () => [
-      {
-        title: "园区A",
-        color1: "#474c53",
-        color2: "#faf294",
-        percent: 60,
-        size: 80,
-      },
-      {
-        title: "园区B",
-        color1: "#1f3847",
-        color2: "#70fbc2",
-        percent: 75,
-        size: 110,
-      },
-      {
-        title: "园区C",
-        color1: "#4d5356",
-        color2: "#8fc5ff",
-        percent: 60,
-        size: 80,
-      },
-    ],
+import { onMounted, getCurrentInstance, ref, nextTick } from "vue";
+const { Bus } = getCurrentInstance().appContext.config.globalProperties;
+onMounted(() => {
+  Bus.on("resize", async (res) => {
+    const { chart: { chartW, chartH } } = res;
+    await nextTick();
+    charts.value = charts.value.map((item, idx) => {
+      if (idx === 0) {
+        item.size = chartH - 95;
+      } else if (idx === 1) {
+        item.size = chartH - 65;
+      } else if (idx === 2) {
+        item.size = chartH - 95;
+      }
+      return item;
+    });
+  });
+});
+const charts = ref([
+  {
+    title: "园区A",
+    color1: "#474c53",
+    color2: "#faf294",
+    percent: 60,
+    size: 80,
   },
-});
-const { Bus }  = getCurrentInstance().appContext.config.globalProperties;
-Bus.on('resize', (res) => {
-  console.log('ringlike', res);
-});
+  {
+    title: "园区B",
+    color1: "#1f3847",
+    color2: "#70fbc2",
+    percent: 75,
+    size: 110,
+  },
+  {
+    title: "园区C",
+    color1: "#4d5356",
+    color2: "#8fc5ff",
+    percent: 60,
+    size: 80,
+  },
+]);
 </script>
 
 <template>
   <div class="ringlike">
-    <div class="chart" v-for="(chart, index) in charts" :key="index" :style="{'--size': chart.size + 'px'}">
+    <div
+      class="chart"
+      v-for="(chart, index) in charts"
+      :key="index"
+      :style="{ '--size': chart.size + 'px' }"
+    >
       <div class="ring">
         <svg
           viewBox="0 0 36 36"
@@ -97,7 +110,10 @@ Bus.on('resize', (res) => {
             {{ `${chart.percent}%` }}
           </text>
         </svg>
-        <div class="dot" :style="{'--clr': chart.color2, '--percent': chart.percent}"></div>
+        <div
+          class="dot"
+          :style="{ '--clr': chart.color2, '--percent': chart.percent }"
+        ></div>
       </div>
       <div style="height: 30px"></div>
       <div class="title">

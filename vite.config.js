@@ -6,6 +6,7 @@ import vue from '@vitejs/plugin-vue';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  base: './',
   css: {
     preprocessorOptions: {
       less: {
@@ -46,7 +47,7 @@ export default defineConfig({
         chunkFileNames: (chunkInfo) => {
           const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : [];
           const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]';
-          return `js/${fileName}/[name].[hash].js`;
+          return `assets/${fileName}/[name].[hash].js`;
         }
       }
     }

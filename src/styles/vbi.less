@@ -25,6 +25,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 999;
 }
 
 .vbi-right {
@@ -36,6 +37,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 999;
 }
 
 .vbi-bottom {
@@ -43,4 +45,13 @@
   bottom: .px2vh(10)[@result];
   left: 50%;
   transform: translateX(-50%);
+  z-index: 999;
+}
+
+.vbi-center {
+  position: absolute;
+  top: .px2vh(120)[@result];
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
 }

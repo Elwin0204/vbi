@@ -8,6 +8,7 @@ import MixedLinebar from './components/MixedLinebar';
 import Pyramid3D from './components/Pyramid3D';
 import LineChart2 from './components/LineChart2';
 import PieChart from './components/PieChart';
+import Map from './components/Map';
 import useResize from './hooks/useResize';
 useResize();
 </script>
@@ -53,6 +54,9 @@ useResize();
     </div>
     <div class="vbi-bottom">
       <LineChart2 />
+    </div>
+    <div class="vbi-center">
+      <Map />
     </div>
   </div>
 </template>

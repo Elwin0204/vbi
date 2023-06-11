@@ -58,7 +58,7 @@ const charts = ref([
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <filter id="shadow" width="150%" height="150%" x="-25%" y="-25%">
+            <filter id="RingShadow" width="150%" height="150%" x="-25%" y="-25%">
               <feGaussianBlur in="SourceGraphic" stdDeviation="0.5" />
               <feBlend in="SourceGraphic" mode="normal" />
             </filter>
@@ -94,7 +94,7 @@ const charts = ref([
             :stroke-dasharray="`${chart.percent}, 100`"
             stroke-linecap="round"
             fill="none"
-            filter="url(#shadow)"
+            filter="url(#RingShadow)"
             d="M18 2.0845
               a 15.9155 15.9155 0 0 1 0 31.831
               a 15.9155 15.9155 0 0 1 0 -31.831"

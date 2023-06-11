@@ -14,7 +14,7 @@ defineProps({
     >
       <defs>
         <filter
-          id="insetShadow"
+          id="WrapperShadow"
           height="150%"
           width="150%"
           x="-25%"
@@ -35,7 +35,7 @@ defineProps({
       <polyline
         points="0,25 15,0 600,0 600,30 585,50 60,50 45,65 0,65 0,25"
         style="stroke: #1a4db2; stroke-width: 2"
-        filter="url(#insetShadow)"
+        filter="url(#WrapperShadow)"
       ></polyline>
       <polyline
         points="0,75 50,75 65,60 600,60 600,305 575,335 0,335 0,75"
@@ -45,7 +45,7 @@ defineProps({
       <polyline
         points="0,75 50,75 65,60 600,60 600,305 575,335 0,335 0,75"
         style="stroke: #1a4db2; stroke-width: 2"
-        filter="url(#insetShadow)"
+        filter="url(#WrapperShadow)"
       ></polyline>
       <g>
         <path

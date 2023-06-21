@@ -7,7 +7,9 @@ export default function () {
     const w = document.documentElement.clientWidth || document.body.clientWidth;
     const chartH = 240 / 1080 * h;
     const chartW = 510 / 1080 * h;
-    Bus.emit('resize', { screen: { w, h }, chart: { chartW, chartH }  });
+    const mapH = 770 / 1080 * h;
+    const mapW = 830 / 1080 * h;
+    Bus.emit('resize', { screen: { w, h }, chart: { chartW, chartH }, map: { mapW, mapH }  });
   }
   const throttled = throttle(resize, 300);
 

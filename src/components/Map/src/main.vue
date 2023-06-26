@@ -12,8 +12,7 @@ let option;
 onMounted(() => {
   Bus.on("resize", async (res) => {
     const {
-      map: { mapW, mapH },
-      screen: { w, h }
+      map: { mapW, mapH }
     } = res;
     CH.value = mapH;
     CW.value = mapW;
@@ -29,6 +28,15 @@ const data = [
     },
     location: {
       color: 'red'
+    },
+    line: {
+      points: [
+        [0, 0],
+        [-30, -5],
+        [-65, 22],
+        [-100, 20]
+      ],
+      color: '#6b91ff'
     }
   }],
   [330.3415644319939, 372.9672194986475, 0, {
@@ -37,6 +45,17 @@ const data = [
     },
     location: {
       color: '#f5222d'
+    },
+    line: {
+      points: [
+        [0, 0],
+        [-26, 5],
+        [-45, 20],
+        [-70, 48],
+        [-104, 75],
+        [-130, 80]
+      ],
+      color: '#6b91ff'
     }
   }],
   [505.0329284196291, 403.6141808346214, 0, {
@@ -45,6 +64,17 @@ const data = [
     },
     location: {
       color: '#18fbff'
+    },
+    line: {
+      points: [
+        [0, 0],
+        [-20, 5],
+        [-40, 30],
+        [-55, 65],
+        [-95, 130],
+        [-125, 135],
+      ],
+      color: '#ffae54'
     }
   }],
   [340.03790632245, 175.1985153835008, 0, {
@@ -53,6 +83,16 @@ const data = [
     },
     location: {
       color: 'red'
+    },
+    line: {
+      points: [
+        [0, 0],
+        [10, -17],
+        [40, -40],
+        [75, -60],
+        [90, -90]
+      ],
+      color: '#6b91ff'
     }
   }],
   [362.98925630313, 245.3839988649537, 0, {
@@ -61,6 +101,15 @@ const data = [
     },
     location: {
       color: '#ffb33f'
+    },
+    line: {
+      points: [
+        [0, 0],
+        [70, -40],
+        [150, -122],
+        [200, -120],
+      ],
+      color: '#ffae54'
     }
   }],
   [445.9672194986475, 350.0329284196291, 0, {
@@ -69,6 +118,16 @@ const data = [
     },
     location: {
       color: 'red'
+    },
+    line: {
+      points: [
+        [0, 0],
+        [35, 5],
+        [70, 0],
+        [100, -5],
+        [130, 15],
+      ],
+      color: '#ffae54'
     }
   }]
 ];
@@ -107,6 +166,8 @@ function initView() {
           ]);
           const color1 = data[params.dataIndex][3].circle.color || 'red';
           const color2 = data[params.dataIndex][3].location.color || 'red';
+          const points = data[params.dataIndex][3].line.points;
+          const color3 = data[params.dataIndex][3].line.color || 'red';
           const circles = [];
           for (let i = 0; i < 5; i++) {
             circles.push({
@@ -147,6 +208,7 @@ function initView() {
               }
             });
           }
+
           return {
             type: 'group',
             x: coord[0],
@@ -183,7 +245,19 @@ function initView() {
                     }
                   ]
                 }
-              }
+              },
+              {
+                type: 'polyline',
+                shape: {
+                  points: points,
+                  smooth: '0.5'
+                },
+                style: {
+                  stroke: color3,
+                  lineWidth: 2,
+                  fill: 'transparent'
+                }
+              },
             ]
           }
         }
@@ -191,7 +265,6 @@ function initView() {
     }
     option && chartIns.value.setOption(option);
   })
-  option && chartIns.value.setOption(option);
 }
 </script>
 
